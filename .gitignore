@@ -38,7 +38,6 @@ sysinfo.txt
 
 
 *.meta
-*.png
 *.json
 *.asset
 *.log
