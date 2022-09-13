@@ -4,19 +4,21 @@ using UnityEngine;
 
 public class CardGenerator : MonoBehaviour
 {
+    [SerializeField] CardBase[] cardBases;
     [SerializeField] Card cardPrefab;
 
     void Start()
     {
-        for (int i = 0; i < 8; i++)
+        for (int i = 0; i <= 7; i++)
         {
-            Spawn();
+            Spawn(i);
         }
     }
 
     // Cardの生成
-    public void Spawn()
+    public void Spawn(int number)
     {
-        Instantiate(cardPrefab);
+        Card card = Instantiate(cardPrefab);
+        card.Set(cardBases[number]);
     }
 }
