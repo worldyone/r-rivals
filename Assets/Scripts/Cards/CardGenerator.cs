@@ -9,16 +9,13 @@ public class CardGenerator : MonoBehaviour
 
     void Start()
     {
-        for (int i = 0; i <= 7; i++)
-        {
-            Spawn(i);
-        }
     }
 
     // Cardの生成
-    public void Spawn(int number)
+    public Card Spawn(int number)
     {
         Card card = Instantiate(cardPrefab);
         card.Set(cardBases[number]);
+        return card;
     }
 }

@@ -14,7 +14,7 @@ public class Card : MonoBehaviour
 
     public void Set(CardBase cardBase)
     {
-        nameText.text = cardBase.name;
+        nameText.text = cardBase.Name;
         numberText.text = cardBase.Number.ToString();
         icon.sprite = cardBase.Icon;
         descriptionText.text = cardBase.Description;
