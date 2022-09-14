@@ -16,12 +16,17 @@ public class GameMaster : MonoBehaviour
     // カードを生成して配る
     void Setup()
     {
+        SendCardsTo(player);
+        SendCardsTo(enemy);
+    }
+
+    void SendCardsTo(Battler battler)
+    {
         for (int i = 0; i <= 7; i++)
         {
             Card card = cardGenerator.Spawn(i);
-            player.Hand.Add(card);
+            battler.Hand.Add(card);
         }
-
-        player.Hand.ResetPositions();
+        battler.Hand.ResetPositions();
     }
 }
