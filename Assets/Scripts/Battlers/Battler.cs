@@ -5,6 +5,7 @@ using UnityEngine;
 public class Battler : MonoBehaviour
 {
     [SerializeField] BattlerHand hand;
+    [SerializeField] SubmitPosition submitPosition;
 
     public BattlerHand Hand { get => hand; set => hand = value; }
 
@@ -16,6 +17,13 @@ public class Battler : MonoBehaviour
 
     void SelectedCard(Card card)
     {
-        Debug.Log(card.Base.Number);
+        // すでにセットしていれば、手札にもどす
+        if (submitPosition.SubmitCard)
+        {
+            hand.Add(submitPosition.SubmitCard);
+        }
+        hand.Remove(card);
+        submitPosition.Set(card);
+        hand.ResetPositions();
     }
 }
