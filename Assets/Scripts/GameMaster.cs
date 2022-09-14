@@ -7,6 +7,7 @@ public class GameMaster : MonoBehaviour
     [SerializeField] Battler player;
     [SerializeField] Battler enemy;
     [SerializeField] CardGenerator cardGenerator;
+    [SerializeField] GameObject submitButton;
 
     void Start()
     {
@@ -16,8 +17,19 @@ public class GameMaster : MonoBehaviour
     // カードを生成して配る
     void Setup()
     {
+        player.OnSubmitAction = SubmittedAction;
         SendCardsTo(player);
         SendCardsTo(enemy);
+    }
+
+    void SubmittedAction()
+    {
+        Debug.Log("BattlerからMasterに通知を受け取った");
+
+        if (player.IsSubmitted)
+        {
+            submitButton.SetActive(false);
+        }
     }
 
     void SendCardsTo(Battler battler)
