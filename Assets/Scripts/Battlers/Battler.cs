@@ -43,4 +43,14 @@ public class Battler : MonoBehaviour
             OnSubmitAction?.Invoke();
         }
     }
+
+    public void RandomSubmit()
+    {
+        // 手札からランダムにカードを出す
+        Card randomCard = hand.RandomRemove();
+        submitPosition.Set(randomCard);
+        IsSubmitted = true;
+        OnSubmitAction?.Invoke();
+        hand.ResetPositions();
+    }
 }
