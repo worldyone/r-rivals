@@ -8,17 +8,25 @@ public class GameUI : MonoBehaviour
     [SerializeField] Text turnResultText;
     [SerializeField] Text playerLifeText;
     [SerializeField] Text enemyLifeText;
-    // ターンの勝敗表示
+    [SerializeField] GameObject resultPanel;
+    [SerializeField] Text resultText;
 
     public void Init()
     {
         turnResultText.gameObject.SetActive(false);
+        resultPanel.SetActive(false);
     }
 
     public void ShowTurnResult(string result)
     {
         turnResultText.gameObject.SetActive(true);
         turnResultText.text = result;
+    }
+
+    public void ShowGameResult(string result)
+    {
+        resultPanel.SetActive(true);
+        resultText.text = result;
     }
 
     public void SetupNextTurn()
