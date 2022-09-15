@@ -9,6 +9,7 @@ public class Battler : MonoBehaviour
     [SerializeField] SubmitPosition submitPosition;
     public bool IsSubmitted { get; private set; }
     public UnityAction OnSubmitAction;
+    public int Life { get; set; }
 
     public BattlerHand Hand { get => hand; set => hand = value; }
     public Card SubmitCard { get => submitPosition.SubmitCard; }

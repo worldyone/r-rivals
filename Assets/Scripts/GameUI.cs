@@ -6,6 +6,8 @@ using UnityEngine.UI;
 public class GameUI : MonoBehaviour
 {
     [SerializeField] Text turnResultText;
+    [SerializeField] Text playerLifeText;
+    [SerializeField] Text enemyLifeText;
     // ターンの勝敗表示
 
     public void Init()
@@ -22,5 +24,11 @@ public class GameUI : MonoBehaviour
     public void SetupNextTurn()
     {
         turnResultText.gameObject.SetActive(false);
+    }
+
+    public void ShowLives(int playerLife, int enemyLife)
+    {
+        playerLifeText.text = $"x{playerLife}";
+        enemyLifeText.text = $"x{enemyLife}";
     }
 }

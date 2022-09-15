@@ -25,6 +25,9 @@ public class GameMaster : MonoBehaviour
     void Setup()
     {
         gameUI.Init();
+        player.Life = 4;
+        enemy.Life = 4;
+        gameUI.ShowLives(player.Life, enemy.Life);
         player.OnSubmitAction = SubmittedAction;
         enemy.OnSubmitAction = SubmittedAction;
         SendCardsTo(player);
@@ -72,18 +75,28 @@ public class GameMaster : MonoBehaviour
         {
             case Result.GameWin:
             case Result.TurnWin:
+                gameUI.ShowTurnResult("WIN");
+                enemy.Life--;
+                break;
             case Result.TurnWin2:
                 gameUI.ShowTurnResult("WIN");
+                enemy.Life -= 2;
                 break;
             case Result.GameLose:
             case Result.TurnLose:
+                gameUI.ShowTurnResult("LOSE");
+                player.Life--;
+                break;
             case Result.TurnLose2:
                 gameUI.ShowTurnResult("LOSE");
+                player.Life -= 2;
                 break;
             case Result.TurnDraw:
                 gameUI.ShowTurnResult("DRAW");
                 break;
         }
+
+        gameUI.ShowLives(player.Life, enemy.Life);
 
         yield return new WaitForSeconds(1f);
         SetupNextTurn();
