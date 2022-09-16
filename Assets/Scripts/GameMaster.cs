@@ -8,7 +8,6 @@ public class GameMaster : MonoBehaviour
     [SerializeField] Battler player;
     [SerializeField] Battler enemy;
     [SerializeField] CardGenerator cardGenerator;
-    [SerializeField] GameObject submitButton;
     [SerializeField] GameUI gameUI;
     RuleBook ruleBook;
 
@@ -42,14 +41,10 @@ public class GameMaster : MonoBehaviour
         {
             // Cardの勝利判定
             StartCoroutine(CardsBattle());
-
-            submitButton.SetActive(false);
         }
         else if (player.IsSubmitted)
         {
             // playerだけがカードを出している
-
-            submitButton.SetActive(false);
             // enemyからカードを出す
             enemy.RandomSubmit();
         }
@@ -149,7 +144,6 @@ public class GameMaster : MonoBehaviour
     {
         player.SetupNextTurn();
         enemy.SetupNextTurn();
-        submitButton.SetActive(true);
         gameUI.SetupNextTurn();
         gameUI.UpdateAddNumber(player.IsAddNumber, enemy.IsAddNumber);
 
