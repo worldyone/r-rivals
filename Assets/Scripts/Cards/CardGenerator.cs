@@ -12,10 +12,10 @@ public class CardGenerator : MonoBehaviour
     }
 
     // Cardの生成
-    public Card Spawn(int number)
+    public Card Spawn(int number, bool isEnemy)
     {
         Card card = Instantiate(cardPrefab);
-        card.Set(cardBases[number]);
+        card.Set(cardBases[number], isEnemy);
         return card;
     }
 }
