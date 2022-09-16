@@ -17,16 +17,19 @@ public class RuleBook : MonoBehaviour
     //*/
     public Result GetResult(Battler player, Battler enemy)
     {
+        int playerNumber = player.SubmitCard.Base.Number;
+        int enemyNumber = enemy.SubmitCard.Base.Number;
+
         /// 戦闘前処理
         // 将軍効果の発動
         if (player.IsAddNumber)
         {
-            player.SubmitCard.Base.Number += 2;
+            playerNumber += 2;
             player.IsAddNumber = false;
         }
         if (enemy.IsAddNumber)
         {
-            enemy.SubmitCard.Base.Number += 2;
+            enemyNumber += 2;
             enemy.IsAddNumber = false;
         }
 
@@ -34,7 +37,7 @@ public class RuleBook : MonoBehaviour
         // ・マジシャンがいれば数字対決
         if (ExistTypeInBattle(player.SubmitCard, enemy.SubmitCard, CardType.Magician))
         {
-            return NumberBattle(player.SubmitCard.Base, enemy.SubmitCard.Base);
+            return NumberBattle(playerNumber, enemyNumber);
         }
 
         // ・密偵がいるなら追加効果(次のターン、相手は先に出す)
@@ -69,7 +72,7 @@ public class RuleBook : MonoBehaviour
         if (ExistTypeInBattle(player.SubmitCard, enemy.SubmitCard, CardType.Assassin)
             && !ExistTypeInBattle(player.SubmitCard, enemy.SubmitCard, CardType.Prince))
         {
-            return NumberBattle(enemy.SubmitCard.Base, player.SubmitCard.Base);
+            return NumberBattle(enemyNumber, playerNumber);
         }
 
         // ・王子と姫がいるならGameの勝利判定
@@ -82,11 +85,28 @@ public class RuleBook : MonoBehaviour
         // ・大臣がいるなら2倍の勝利判定
         if (ExistTypeInBattle(player.SubmitCard, enemy.SubmitCard, CardType.Minister))
         {
-            return NumberMinisterBattle(player.SubmitCard.Base, enemy.SubmitCard.Base);
+            Result ministerBattleResult;
+            ministerBattleResult = NumberBattle(playerNumber, enemyNumber);
+
+            // 自分が大臣で自分が勝ったなら2倍の勝利
+            if (player.SubmitCard.Base.Type == CardType.Minister
+                && ministerBattleResult == Result.TurnWin)
+            {
+                ministerBattleResult = Result.TurnWin2;
+            }
+
+            // 相手が大臣で自分が負けたなら2倍の敗北
+            if (enemy.SubmitCard.Base.Type == CardType.Minister
+                && ministerBattleResult == Result.TurnLose)
+            {
+                ministerBattleResult = Result.TurnLose2;
+            }
+
+            return ministerBattleResult;
         }
 
         // 通常の数字対決
-        return NumberBattle(player.SubmitCard.Base, enemy.SubmitCard.Base);
+        return NumberBattle(playerNumber, enemyNumber);
     }
 
     private Result PrinceVsPrincessBattle(CardBase playerCard, CardBase enemyCard)
@@ -97,47 +117,13 @@ public class RuleBook : MonoBehaviour
             return Result.GameWin;
     }
 
-    private Result NumberMinisterBattle(CardBase playerCard, CardBase enemyCard)
+    Result NumberBattle(int playerNumber, int enemyNumber)
     {
-        if (playerCard.Type == CardType.Minister)
-        {
-            if (playerCard.Number > enemyCard.Number)
-            {
-                return Result.TurnWin2;
-            }
-            else if (playerCard.Number < enemyCard.Number)
-            {
-                return Result.TurnLose;
-            }
-            else
-            {
-                return Result.TurnDraw;
-            }
-        }
-        else
-        {
-            if (playerCard.Number > enemyCard.Number)
-            {
-                return Result.TurnWin;
-            }
-            else if (playerCard.Number < enemyCard.Number)
-            {
-                return Result.TurnLose2;
-            }
-            else
-            {
-                return Result.TurnDraw;
-            }
-        }
-    }
-
-    Result NumberBattle(CardBase playerCard, CardBase enemyCard)
-    {
-        if (playerCard.Number > enemyCard.Number)
+        if (playerNumber > enemyNumber)
         {
             return Result.TurnWin;
         }
-        else if (playerCard.Number < enemyCard.Number)
+        else if (playerNumber < enemyNumber)
         {
             return Result.TurnLose;
         }

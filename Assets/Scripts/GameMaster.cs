@@ -29,6 +29,7 @@ public class GameMaster : MonoBehaviour
         player.Life = 4;
         enemy.Life = 4;
         gameUI.ShowLives(player.Life, enemy.Life);
+        gameUI.UpdateAddNumber(false, false);
         player.OnSubmitAction = SubmittedAction;
         enemy.OnSubmitAction = SubmittedAction;
         SendCardsTo(player, isEnemy: false);
@@ -115,6 +116,8 @@ public class GameMaster : MonoBehaviour
 
     void ShowResult(Result result)
     {
+        gameUI.UpdateAddNumber(false, false);
+
         if (result == Result.GameWin)
         {
             gameUI.ShowGameResult("WIN");
@@ -143,6 +146,7 @@ public class GameMaster : MonoBehaviour
         enemy.SetupNextTurn();
         submitButton.SetActive(true);
         gameUI.SetupNextTurn();
+        gameUI.UpdateAddNumber(player.IsAddNumber, enemy.IsAddNumber);
 
         if (enemy.IsFirstSubmit)
         {
