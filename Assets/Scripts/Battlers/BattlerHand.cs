@@ -5,6 +5,7 @@ using UnityEngine;
 public class BattlerHand : MonoBehaviour
 {
     List<Card> list = new List<Card>();
+    public bool IsEmpty { get => list.Count == 0; }
 
     // listに追加して自分の子要素にする
     public void Add(Card card)

@@ -77,7 +77,6 @@ public class GameMaster : MonoBehaviour
         Result result = ruleBook.GetResult(player, enemy);
         switch (result)
         {
-            case Result.GameWin:
             case Result.TurnWin:
                 gameUI.ShowTurnResult("WIN");
                 enemy.Life--;
@@ -86,7 +85,6 @@ public class GameMaster : MonoBehaviour
                 gameUI.ShowTurnResult("WIN");
                 enemy.Life -= 2;
                 break;
-            case Result.GameLose:
             case Result.TurnLose:
                 gameUI.ShowTurnResult("LOSE");
                 player.Life--;
@@ -103,6 +101,10 @@ public class GameMaster : MonoBehaviour
         gameUI.ShowLives(player.Life, enemy.Life);
         yield return new WaitForSeconds(1f);
 
+        if (player.Hand.IsEmpty && enemy.Hand.IsEmpty)
+        {
+            ShowResult(Result.GameDraw);
+        }
         if (player.Life <= 0 || enemy.Life <= 0
             || result == Result.GameWin || result == Result.GameLose)
         {
@@ -116,8 +118,6 @@ public class GameMaster : MonoBehaviour
 
     void ShowResult(Result result)
     {
-        gameUI.UpdateAddNumber(false, false);
-
         if (result == Result.GameWin)
         {
             gameUI.ShowGameResult("WIN");
@@ -128,6 +128,7 @@ public class GameMaster : MonoBehaviour
         }
         else if (player.Life <= 0 && enemy.Life <= 0)
         {
+            // cant reach
             gameUI.ShowGameResult("DRAW");
         }
         else if (player.Life <= 0)
@@ -137,6 +138,10 @@ public class GameMaster : MonoBehaviour
         else if (enemy.Life <= 0)
         {
             gameUI.ShowGameResult("WIN");
+        }
+        else
+        {
+            gameUI.ShowGameResult("DRAW");
         }
     }
 
@@ -159,9 +164,6 @@ public class GameMaster : MonoBehaviour
             // TODO:
             // playerが先に表で出す（パネル表示）
         }
-
-        // TODO:
-        // 将軍効果の+2表記をUIとして表示する
     }
 
     public void OnRetryButton()
