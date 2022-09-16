@@ -207,6 +207,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hand: {fileID: 843679702}
   submitPosition: {fileID: 1294652880}
+  submitButton: {fileID: 393914753}
 --- !u!4 &200195159
 Transform:
   m_ObjectHideFlags: 0
@@ -410,13 +411,14 @@ GameObject:
   - component: {fileID: 393914757}
   - component: {fileID: 393914756}
   - component: {fileID: 393914755}
+  - component: {fileID: 393914758}
   m_Layer: 5
   m_Name: SubmitButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &393914754
 RectTransform:
   m_ObjectHideFlags: 0
@@ -531,6 +533,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 393914753}
   m_CullTransparentMesh: 1
+--- !u!114 &393914758
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 393914753}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa21a481cd172654c930193ef693df6e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -1500,6 +1514,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hand: {fileID: 329849378}
   submitPosition: {fileID: 1996652055}
+  submitButton: {fileID: 0}
 --- !u!4 &1153402872
 Transform:
   m_ObjectHideFlags: 0
@@ -1548,7 +1563,6 @@ MonoBehaviour:
   player: {fileID: 200195158}
   enemy: {fileID: 1153402871}
   cardGenerator: {fileID: 173460608}
-  submitButton: {fileID: 393914753}
   gameUI: {fileID: 755168294}
 --- !u!4 &1254281153
 Transform:
