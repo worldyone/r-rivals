@@ -37,4 +37,18 @@ public class Card : MonoBehaviour
     {
         hidePanel.SetActive(false);
     }
+
+    public void OnPointerEnter()
+    {
+        transform.position += Vector3.up * 0.3f;
+        transform.localScale = Vector3.one * 1.3f;
+        GetComponentInChildren<Canvas>().sortingLayerName = "Overlay";
+    }
+
+    public void OnPointerExit()
+    {
+        transform.position -= Vector3.up * 0.3f;
+        transform.localScale = Vector3.one;
+        GetComponentInChildren<Canvas>().sortingLayerName = "Default";
+    }
 }
