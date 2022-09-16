@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameMaster : MonoBehaviour
 {
@@ -154,5 +155,16 @@ public class GameMaster : MonoBehaviour
 
         // TODO:
         // 将軍効果の+2表記をUIとして表示する
+    }
+
+    public void OnRetryButton()
+    {
+        string currentScene = SceneManager.GetActiveScene().name;
+        SceneManager.LoadScene(currentScene);
+    }
+
+    public void OnTitleButton()
+    {
+        SceneManager.LoadScene("Title");
     }
 }
