@@ -99,7 +99,8 @@ public class GameMaster : MonoBehaviour
         gameUI.ShowLives(player.Life, enemy.Life);
         yield return new WaitForSeconds(1f);
 
-        if (player.Life <= 0 || enemy.Life <= 0)
+        if (player.Life <= 0 || enemy.Life <= 0
+            || result == Result.GameWin || result == Result.GameLose)
         {
             ShowResult(result);
         }
@@ -150,5 +151,8 @@ public class GameMaster : MonoBehaviour
             // TODO:
             // playerが先に表で出す（パネル表示）
         }
+
+        // TODO:
+        // 将軍効果の+2表記をUIとして表示する
     }
 }

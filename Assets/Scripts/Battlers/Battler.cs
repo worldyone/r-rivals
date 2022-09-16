@@ -9,6 +9,8 @@ public class Battler : MonoBehaviour
     [SerializeField] SubmitPosition submitPosition;
     public bool IsSubmitted { get; private set; }
     public bool IsFirstSubmit { get; set; }
+    public bool IsAddNumber { get; set; }
+    public int AddNumber { get; private set; }
     public UnityAction OnSubmitAction;
     public int Life { get; set; }
 
