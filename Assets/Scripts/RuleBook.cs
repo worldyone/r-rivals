@@ -23,8 +23,17 @@ public class RuleBook : MonoBehaviour
             return NumberBattle(player.SubmitCard.Base, enemy.SubmitCard.Base);
         }
 
-        // TODO:
         // ・密偵がいるなら追加効果
+        if (player.SubmitCard.Base.Type == CardType.Spy
+            && enemy.SubmitCard.Base.Type != CardType.Spy)
+        {
+            enemy.IsFirstSubmit = true;
+        }
+        if (enemy.SubmitCard.Base.Type == CardType.Spy
+            && player.SubmitCard.Base.Type != CardType.Spy)
+        {
+            player.IsFirstSubmit = true;
+        }
 
         // TODO:
         // ・将軍がいるなら追加効果

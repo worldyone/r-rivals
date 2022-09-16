@@ -139,5 +139,16 @@ public class GameMaster : MonoBehaviour
         enemy.SetupNextTurn();
         submitButton.SetActive(true);
         gameUI.SetupNextTurn();
+
+        if (enemy.IsFirstSubmit)
+        {
+            enemy.RandomSubmit();
+            enemy.IsFirstSubmit = false;
+        }
+        if (player.IsFirstSubmit)
+        {
+            // TODO:
+            // playerが先に表で出す（パネル表示）
+        }
     }
 }
