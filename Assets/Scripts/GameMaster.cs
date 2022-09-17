@@ -2,8 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Photon.Pun;
+using Photon.Realtime;
 
-public class GameMaster : MonoBehaviour
+public class GameMaster : MonoBehaviourPunCallbacks
 {
     [SerializeField] Battler player;
     [SerializeField] Battler enemy;
@@ -30,6 +32,10 @@ public class GameMaster : MonoBehaviour
         gameUI.ShowLives(player.Life, enemy.Life);
         gameUI.UpdateAddNumber(false, false);
         player.OnSubmitAction = SubmittedAction;
+        if (GameDataManager.Instance.IsOnlineBattle)
+        {
+            player.OnSubmitAction += SendPlayerCard;
+        }
         enemy.OnSubmitAction = SubmittedAction;
         SendCardsTo(player, isEnemy: false);
         SendCardsTo(enemy, isEnemy: true);
@@ -171,5 +177,17 @@ public class GameMaster : MonoBehaviour
     public void OnTitleButton()
     {
         SceneManager.LoadScene("Title");
+    }
+
+    // Playerがカードを出した時に相手に送る
+    void SendPlayerCard()
+    {
+        photonView.RPC(nameof(RPCOnReceivedCard), RpcTarget.Others, player.SubmitCard.Base.Number);
+    }
+
+    [PunRPC]
+    void RPCOnReceivedCard(int number)
+    {
+        Debug.Log(number);
     }
 }
