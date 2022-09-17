@@ -44,9 +44,8 @@ public class GameMaster : MonoBehaviour
         }
         else if (player.IsSubmitted)
         {
-            // playerだけがカードを出している
-            // enemyからカードを出す
-            enemy.RandomSubmit();
+            if (!GameDataManager.Instance.IsOnlineBattle)
+                enemy.RandomSubmit();
         }
         else if (enemy.IsSubmitted)
         {
@@ -149,9 +148,12 @@ public class GameMaster : MonoBehaviour
 
         if (enemy.IsFirstSubmit)
         {
-            enemy.RandomSubmit();
             enemy.IsFirstSubmit = false;
-            enemy.SubmitCard.Open();
+            if (!GameDataManager.Instance.IsOnlineBattle)
+            {
+                enemy.RandomSubmit();
+                enemy.SubmitCard.Open();
+            }
         }
         if (player.IsFirstSubmit)
         {
