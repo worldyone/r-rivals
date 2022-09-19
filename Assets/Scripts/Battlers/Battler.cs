@@ -67,4 +67,16 @@ public class Battler : MonoBehaviour
         submitPosition.DeleteCard();
         IsSubmitted = false;
     }
+
+    public void ReflectEnemySubmitAction(int number)
+    {
+        // numberからカードを確定させる
+        Card card = hand.CardOfNumber(number);
+
+        // 提出行動を行う(playerAさん画面のenemyBさんの行動処理)
+        hand.Remove(card);
+        submitPosition.Set(card);
+        IsSubmitted = true;
+        OnSubmitAction?.Invoke();
+    }
 }

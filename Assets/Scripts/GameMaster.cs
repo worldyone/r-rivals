@@ -179,7 +179,7 @@ public class GameMaster : MonoBehaviourPunCallbacks
         SceneManager.LoadScene("Title");
     }
 
-    // Playerがカードを出した時に相手に送る
+    // Playerがカードを出した時に相手に送ったことを伝える
     void SendPlayerCard()
     {
         photonView.RPC(nameof(RPCOnReceivedCard), RpcTarget.Others, player.SubmitCard.Base.Number);
@@ -188,6 +188,9 @@ public class GameMaster : MonoBehaviourPunCallbacks
     [PunRPC]
     void RPCOnReceivedCard(int number)
     {
-        Debug.Log(number);
+        // 相手からカードナンバーを受け取る
+        // 相手から受け取ったカードナンバーから提出カードを決定して、提出行動を反映する
+        Debug.Log($"enemyが{number}を出した");
+        enemy.ReflectEnemySubmitAction(number);
     }
 }

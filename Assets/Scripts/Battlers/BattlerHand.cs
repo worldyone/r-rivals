@@ -38,4 +38,19 @@ public class BattlerHand : MonoBehaviour
 
         return card;
     }
+
+    // ナンバーに対応したカードを返す
+    public Card CardOfNumber(int number)
+    {
+        foreach (Card card in list)
+        {
+            if (number == card.Base.Number)
+            {
+                return card;
+            }
+        }
+        Debug.LogError("cant reach");
+        return null;
+    }
+
 }
