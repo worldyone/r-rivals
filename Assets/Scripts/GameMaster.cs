@@ -194,3 +194,9 @@ public class GameMaster : MonoBehaviourPunCallbacks
         enemy.ReflectEnemySubmitAction(number);
     }
 }
+
+/*TODO:
+密偵の効果処理
+ボタン押したら、押下音が鳴る。
+ボタンを押した時に、クリックした感を出す
+*/
